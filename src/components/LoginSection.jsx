@@ -10,20 +10,55 @@ import {
   updateDoc,
   deleteDoc,
   doc,
+  query,
+  where,
 } from "firebase/firestore";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const LoginSection = (props) => {
   const [input, setInput] = useState({});
-  const usersCollectionRef = collection(db, "student");
+  const [invalid, setInvalid] = useState(false);
+  const user = props.user;
+  const navigate = useNavigate()
 
   const login = async () => {
-    var details = {};
-    getDocs(usersCollectionRef).then((data) => {
-      const dis = data.docs.forEach((doc) => {
-        details = doc.data();
-        console.log(details);
-      });
+    console.log(user)
+    const usersCollectionRef = collection(db, user );
+
+    let q = query(
+      usersCollectionRef,
+      where("Admission_Number", "==", input.input1),
+      where("Password", "==", input.input2)
+    );
+    if (props.user === "student") {
+      q = query(
+        usersCollectionRef,
+        where("Admission_Number", "==", input.input1),
+        where("Password", "==", input.input2)
+      );
+    } else {
+      q= query(
+        usersCollectionRef,
+        where("Owner_Id", "==", input.input1),
+        where("Password", "==", input.input2)
+      );
+    }
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((snapshot) => {
+      console.log(snapshot.data());
+      const obj = { ...snapshot.data(), user: props.user }
+      localStorage.setItem("user", JSON.stringify(obj));
+      localStorage.setItem("auth_status", true);
+      if(props.user === "student") {
+
+        navigate("/stdhome")
+      }else {
+        navigate("/ownerhome")
+      }
     });
+    if (querySnapshot.size !== 1) {
+      setInvalid(true);
+    }
+    const fetchedData = [];
   };
   return (
     <div className="login">
@@ -32,7 +67,7 @@ const LoginSection = (props) => {
         id="filled-basic"
         label={props.label1}
         variant="filled"
-        onClick={(e) => {
+        onChange={(e) => {
           setInput({ ...input, input1: e.target.value });
         }}
       />
@@ -40,7 +75,7 @@ const LoginSection = (props) => {
         id="filled-basic"
         label={props.label2}
         variant="filled"
-        onClick={(e) => {
+        onChange={(e) => {
           setInput({ ...input, input2: e.target.value });
         }}
       />
@@ -52,12 +87,23 @@ const LoginSection = (props) => {
       >
         Login
       </Button>
-      <Link to={props.user == "Student" ? "/stdsignup" : "/ownersignup"}>
       <Button
         variant="text"
         size="large"
         style={{ width: "13.5rem", margin: "10px" }}
-      >Signup</Button></Link>
+        disabled
+      >
+        {invalid ? "Invalid Data" : ""}
+      </Button>
+      <Link to={props.user == "student" ? "/stdsignup" : "/ownersignup"}>
+        <Button
+          variant="text"
+          size="large"
+          style={{ width: "13.5rem", margin: "10px" }}
+        >
+          Signup
+        </Button>
+      </Link>
     </div>
   );
 };
