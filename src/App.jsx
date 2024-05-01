@@ -20,9 +20,10 @@ import AddHostel from "./pages/AddHostel";
 import UpdateHostel from "./pages/UpdateHostel";
 
 function App() {
+  const [auth,setAuth] = useState(localStorage.getItem('auth_status'))
   return (
     <>
-      <Home />
+      <Home authStatus={{auth, setAuth}}/>
       <Router>
         <Routes>
           <Route path="/" exact element={<Hero />} />
@@ -42,3 +43,4 @@ function App() {
 }
 
 export default App;
+

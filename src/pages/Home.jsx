@@ -10,10 +10,11 @@ import OwnerSignup from './signup/OwnerSignup';
 import StudentHome from './StudentHome';
 
 
-const Home = () => {
+const Home = (props) => {
+    const authStatus = props.authStatus
     return (
         <div>
-            <Header />
+            <Header authStatus={authStatus}/>
         </div>
     )
 }
