@@ -45,7 +45,7 @@ const LoginSection = (props) => {
       const obj = { ...data, type: "owner" }
       localStorage.setItem("user", JSON.stringify(obj) );
       localStorage.setItem("auth_status",true)
-      navigate("/adminhome")
+      navigate("/ownerhome")
     }
   };
 

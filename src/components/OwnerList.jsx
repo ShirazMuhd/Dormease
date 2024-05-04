@@ -5,15 +5,26 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Button from "@mui/material/Button";
-import AddIcon from '@mui/icons-material/Add';
+import AddIcon from "@mui/icons-material/Add";
+import { Link } from "react-router-dom";
 
 export default function OwnerList() {
   return (
     <>
-    <div style={{display:'flex', alignItems:'center',justifyContent:'space-between'}}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
         <h1>Hostel List</h1>
-        <Button startIcon={<AddIcon />} variant='contained'>Add Hostel</Button>
-    </div>
+        <Link to="/addhostel">
+          <Button startIcon={<AddIcon />} variant="contained">
+            Add Hostel
+          </Button>
+        </Link>
+      </div>
       <div style={{ marginTop: "1rem" }}>
         <Accordion>
           <AccordionSummary
@@ -29,7 +40,9 @@ export default function OwnerList() {
           </AccordionDetails>
           <AccordionActions>
             <Button variant="contained">update</Button>
-            <Button variant="contained" color="error">Delete</Button>
+            <Button variant="contained" color="error">
+              Delete
+            </Button>
           </AccordionActions>
         </Accordion>
       </div>
