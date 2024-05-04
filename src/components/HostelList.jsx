@@ -5,6 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import Rating from '@mui/material/Rating';
 
 export default function HostelList(props) {
   return (
@@ -26,6 +27,7 @@ export default function HostelList(props) {
             <b>Rent</b> : Rs {props.data.rent} <br />
             <b>Mess</b> : {props.data.mess} <br />
             <b>Contact Number</b> : {props.data.contact_number} <br />
+            <Rating name="read-only" value={3.2} readOnly />
           </Typography>
         </CardContent>
         <CardActions>
