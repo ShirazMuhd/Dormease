@@ -11,13 +11,13 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from "react-router-dom";
 
 const LoginSection = (props) => {
   const [input, setInput] = useState({});
-  const userType = props.user
+  const userType = props.user;
   const usersCollectionRef = collection(db, props.user);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const addUser = async (e) => {
     if (userType === "student") {
@@ -29,10 +29,10 @@ const LoginSection = (props) => {
         Password: input.input5,
       };
       await addDoc(usersCollectionRef, data);
-      const obj = { ...data, type: "student" }
-      localStorage.setItem("user", JSON.stringify(obj) );
-      localStorage.setItem("auth_status",true)
-      navigate("/stdhome")
+      const obj = { ...data, type: "student" };
+      localStorage.setItem("user", JSON.stringify(obj));
+      localStorage.setItem("auth_status", true);
+      navigate("/stdhome");
     } else {
       const data = {
         Owner_Id: input.input1,
@@ -42,10 +42,10 @@ const LoginSection = (props) => {
         Password: input.input5,
       };
       await addDoc(usersCollectionRef, data);
-      const obj = { ...data, type: "owner" }
-      localStorage.setItem("user", JSON.stringify(obj) );
-      localStorage.setItem("auth_status",true)
-      navigate("/ownerhome")
+      const obj = { ...data, type: "owner" };
+      localStorage.setItem("user", JSON.stringify(obj));
+      localStorage.setItem("auth_status", true);
+      navigate("/ownerhome");
     }
   };
 
@@ -109,6 +109,15 @@ const LoginSection = (props) => {
       >
         Signup
       </Button>
+      <Link to={props.user == "student" ? "/stdlogin" : "/ownerlogin"}>
+        <Button
+          variant="text"
+          size="large"
+          style={{ width: "13.5rem", margin: "10px" }}
+        >
+          Login
+        </Button>
+      </Link>
     </div>
   );
 };

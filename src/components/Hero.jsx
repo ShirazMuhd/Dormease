@@ -7,8 +7,9 @@ import { Link, useNavigate } from "react-router-dom";
 export const Hero = () => {
   const navigate = useNavigate()
   useEffect(() => {
-    const auth_status = localStorage.getItem('auth_status');
-    if(auth_status) {
+    const auth_status = JSON.parse(localStorage.getItem('auth_status'));
+  
+    if(auth_status === true) {
       console.log("logged in");
       navigate("/stdhome")
     }

@@ -6,15 +6,20 @@ import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const { auth, setAuth } = useContext(authContext);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   useEffect(() => {
     console.log(auth.auth_status);
   });
   const logout = () => {
+    const user = auth.user.user;
     localStorage.setItem("auth_status", false);
     localStorage.setItem("user", null);
     setAuth({ auth_status: false, user: null });
-    navigate('/stdlogin')
+    if (user == "student") {
+      navigate("/stdlogin");
+    } else {
+      navigate("/ownerlogin");
+    }
   };
   return (
     <div className="header" style={{ backgroundColor: "" }}>

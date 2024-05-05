@@ -25,6 +25,8 @@ function App() {
     const user = JSON.parse(localStorage.getItem('user'))
     if (auth_status === true) {
       setAuth({auth_status: true, user});
+    } else {
+      setAuth({auth_status: false, user: null});
     }
   },[])
   return (

@@ -22,11 +22,12 @@ import {
 
 export default function OwnerList() {
   const [hostels, setHostels] = React.useState([{}]);
+  const [update,setUpdate] = React.useState("")
   const user = JSON.parse(localStorage.getItem("user"));
   const Owner_Id = user.Owner_Id;
+  const dataRef = collection(db, "hostels");
   useEffect(() => {
     const getHostels = async () => {
-      const dataRef = collection(db, "hostels");
       console.log(Owner_Id);
       const q = query(dataRef, where("owner", "==", Owner_Id));
       try {
@@ -42,7 +43,16 @@ export default function OwnerList() {
       }
     };
     getHostels();
-  }, []);
+  }, [update]);
+  const deleteHostel = async (id) => {
+    const q = query(dataRef, where("id", "==", id));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc)=> {
+      deleteDoc(doc.ref)
+      console.log("data deleted");
+      setUpdate(Date.now())
+    })
+  };
   return (
     <>
       <div
@@ -77,7 +87,11 @@ export default function OwnerList() {
             </AccordionDetails>
             <AccordionActions>
               <Button variant="contained">update</Button>
-              <Button variant="contained" color="error">
+              <Button
+                variant="contained"
+                color="error"
+                onClick={() => deleteHostel(hostel.id)}
+              >
                 Delete
               </Button>
             </AccordionActions>
