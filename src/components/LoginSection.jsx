@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./css/login.css";
 import { Button } from "@mui/material";
 import { TextField } from "@mui/material";
@@ -6,20 +6,17 @@ import { db } from "../firebase/config";
 import {
   collection,
   getDocs,
-  addDoc,
-  updateDoc,
-  deleteDoc,
-  doc,
   query,
   where,
 } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
+import { authContext } from "../context";
 const LoginSection = (props) => {
   const [input, setInput] = useState({});
   const [invalid, setInvalid] = useState(false);
   const user = props.user;
   const navigate = useNavigate()
-
+  const {auth, setAuth} = useContext(authContext)
   const login = async () => {
     console.log(user)
     const usersCollectionRef = collection(db, user );
@@ -48,6 +45,7 @@ const LoginSection = (props) => {
       const obj = { ...snapshot.data(), user: props.user }
       localStorage.setItem("user", JSON.stringify(obj));
       localStorage.setItem("auth_status", true);
+      setAuth({auth_status: true, user: obj});
       if(props.user === "student") {
 
         navigate("/stdhome")

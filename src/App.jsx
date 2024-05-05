@@ -1,6 +1,4 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import { useEffect, useState } from "react";
 import "./App.css";
 import Home from "./pages/Home";
 import "@fontsource/roboto/300.css";
@@ -18,29 +16,38 @@ import { AdminLogin } from "./pages/login/AdminLogin";
 import OwnerHome from "./pages/OwnerHome";
 import AddHostel from "./pages/AddHostel";
 import UpdateHostel from "./pages/UpdateHostel";
-
+import { authContext } from "./context";
 function App() {
-  const [auth,setAuth] = useState(localStorage.getItem('auth_status'))
+  const [auth, setAuth] = useState({auth_status: false, user: {}})
+  const auth_status = JSON.parse(localStorage.getItem('auth_status'))
+  useEffect(()=> {
+    
+    const user = JSON.parse(localStorage.getItem('user'))
+    if (auth_status === true) {
+      setAuth({auth_status: true, user});
+    }
+  },[])
   return (
     <>
-      <Home authStatus={{auth, setAuth}}/>
-      <Router>
-        <Routes>
-          <Route path="/" exact element={<Hero />} />
-          <Route path="/stdhome" exact element={<StudentHome />} />
-          <Route path="/stdlogin" element={<StudentLogin />} />
-          <Route path="/stdsignup" element={<StudentSignup />} />
-          <Route path="/ownerlogin" element={<OwnerLogin />} />
-          <Route path="/ownersignup" element={<OwnerSignup />} />
-          <Route path="/adminlogin" element={<AdminLogin />} />
-          <Route path="/ownerhome" element={<OwnerHome />} />
-          <Route path="/addhostel" element={<AddHostel />} />
-          <Route path="/updatehostels" element={<UpdateHostel />} />
-        </Routes>
-      </Router>
+      <authContext.Provider value={{auth,setAuth}}>
+        <Router>
+        <Home />
+          <Routes>
+            <Route path="/" exact element={<Hero />} />
+            <Route path="/stdhome" exact element={<StudentHome />} />
+            <Route path="/stdlogin" element={<StudentLogin />} />
+            <Route path="/stdsignup" element={<StudentSignup />} />
+            <Route path="/ownerlogin" element={<OwnerLogin />} />
+            <Route path="/ownersignup" element={<OwnerSignup />} />
+            <Route path="/adminlogin" element={<AdminLogin />} />
+            <Route path="/ownerhome" element={<OwnerHome />} />
+            <Route path="/addhostel" element={<AddHostel />} />
+            <Route path="/updatehostels" element={<UpdateHostel />} />
+          </Routes>
+        </Router>
+      </authContext.Provider>
     </>
   );
 }
 
 export default App;
-
