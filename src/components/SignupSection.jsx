@@ -50,9 +50,7 @@ const LoginSection = (props) => {
     }
   };
 
-  const err = () => {
-    setRequired(true);
-  };
+  
   return (
     <div className="login">
       <h3>Signup as {props.user}</h3>

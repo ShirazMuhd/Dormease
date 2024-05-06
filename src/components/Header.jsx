@@ -22,7 +22,7 @@ const Header = () => {
     }
   };
   return (
-    <div className="header" style={{ backgroundColor: "" }}>
+    <div className="header" >
       <h1>DORMEASE</h1>
       {auth.auth_status && (
         <Button variant="contained" onClick={logout}>

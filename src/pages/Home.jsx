@@ -2,11 +2,10 @@ import React from 'react'
 import Header from '../components/Header';
 
 
-const Home = (props) => {
-    const authStatus = props.authStatus
+const Home = () => {
     return (
         <div>
-            <Header authStatus={authStatus}/>
+            <Header />
         </div>
     )
 }

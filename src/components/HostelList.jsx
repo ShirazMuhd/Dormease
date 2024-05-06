@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function HostelList(props) {
   const navigate = useNavigate()
+  
   return (
     <div style={{ margin: "1rem" }}>
       <Card sx={{ maxWidth: 345 }}>
@@ -23,8 +24,6 @@ export default function HostelList(props) {
             {props.name}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {/* Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica */}
             <b>Vacancy</b> : {props.data.vacancy} <br />
             <b>Rent</b> : Rs {props.data.rent} <br />
             <b>Mess</b> : {props.data.mess} <br />
@@ -35,7 +34,7 @@ export default function HostelList(props) {
         <CardActions>
           <Button size="small">Share</Button>
           <Button size="small" onClick={()=> {
-            navigate("/viewhostel")
+            navigate(`/viewhostel/${props.data.id}`)
           }}>Learn More</Button>
         </CardActions>
       </Card>

@@ -8,10 +8,16 @@ export const Hero = () => {
   const navigate = useNavigate()
   useEffect(() => {
     const auth_status = JSON.parse(localStorage.getItem('auth_status'));
-  
+    const user = JSON.parse(localStorage.getItem('user')).user
     if(auth_status === true) {
       console.log("logged in");
-      navigate("/stdhome")
+      if (user === "student") {
+        navigate("/stdhome")
+        
+      } else {
+        navigate("/ownerhome")
+
+      }
     }
   });
   return (
