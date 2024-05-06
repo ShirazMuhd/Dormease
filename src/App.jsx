@@ -17,6 +17,7 @@ import OwnerHome from "./pages/OwnerHome";
 import AddHostel from "./pages/AddHostel";
 import UpdateHostel from "./pages/UpdateHostel";
 import { authContext } from "./context";
+import HostelView from "./pages/HostelView";
 function App() {
   const [auth, setAuth] = useState({auth_status: false, user: {}})
   const auth_status = JSON.parse(localStorage.getItem('auth_status'))
@@ -45,6 +46,7 @@ function App() {
             <Route path="/ownerhome" element={<OwnerHome />} />
             <Route path="/addhostel" element={<AddHostel />} />
             <Route path="/updatehostels" element={<UpdateHostel />} />
+            <Route path="/viewhostel" element={<HostelView />} />
           </Routes>
         </Router>
       </authContext.Provider>

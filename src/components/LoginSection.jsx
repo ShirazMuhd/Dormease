@@ -73,6 +73,7 @@ const LoginSection = (props) => {
         id="filled-basic"
         label={props.label2}
         variant="filled"
+        type="password"
         onChange={(e) => {
           setInput({ ...input, input2: e.target.value });
         }}

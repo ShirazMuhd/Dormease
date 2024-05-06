@@ -6,8 +6,10 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Rating from '@mui/material/Rating';
+import { useNavigate } from "react-router-dom";
 
 export default function HostelList(props) {
+  const navigate = useNavigate()
   return (
     <div style={{ margin: "1rem" }}>
       <Card sx={{ maxWidth: 345 }}>
@@ -32,7 +34,9 @@ export default function HostelList(props) {
         </CardContent>
         <CardActions>
           <Button size="small">Share</Button>
-          <Button size="small">Learn More</Button>
+          <Button size="small" onClick={()=> {
+            navigate("/viewhostel")
+          }}>Learn More</Button>
         </CardActions>
       </Card>
     </div>

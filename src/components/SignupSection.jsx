@@ -15,6 +15,7 @@ import { useNavigate, Link } from "react-router-dom";
 
 const LoginSection = (props) => {
   const [input, setInput] = useState({});
+  const [required, setRequired] = useState(false);
   const userType = props.user;
   const usersCollectionRef = collection(db, props.user);
   const navigate = useNavigate();
@@ -49,6 +50,9 @@ const LoginSection = (props) => {
     }
   };
 
+  const err = () => {
+    setRequired(true);
+  };
   return (
     <div className="login">
       <h3>Signup as {props.user}</h3>
@@ -95,6 +99,7 @@ const LoginSection = (props) => {
         id="filled-basic"
         label="Password"
         variant="filled"
+        type="password"
         style={{ marginTop: "0.5rem" }}
         onChange={(e) => {
           setInput({ ...input, input5: e.target.value });
@@ -105,7 +110,20 @@ const LoginSection = (props) => {
         variant="contained"
         size="large"
         style={{ width: "13.5rem", margin: "10px" }}
-        onClick={() => addUser()}
+        onClick={() => {
+          if (
+            input.input1 &&
+            input.input2 &&
+            input.input3 &&
+            input.input4 &&
+            input.input5
+          ) {
+            setRequired(false);
+            addUser();
+          } else {
+            setRequired(true);
+          }
+        }}
       >
         Signup
       </Button>
@@ -118,6 +136,11 @@ const LoginSection = (props) => {
           Login
         </Button>
       </Link>
+      {required && (
+        <Button variant="text" color="error">
+          All field are required*
+        </Button>
+      )}
     </div>
   );
 };

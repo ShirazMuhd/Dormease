@@ -70,6 +70,7 @@ export default function OwnerList() {
         </Link>
       </div>
       <div style={{ marginTop: "1rem" }}>
+
         {hostels.map((hostel) => (
           <Accordion>
             <AccordionSummary
