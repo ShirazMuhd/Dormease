@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Box from "@mui/material/Box";
 import "./css/ViewHostel.css";
 import { db } from "../firebase/config";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { Button } from "@mui/material";
+import PhoneIcon from "@mui/icons-material/Phone";
 const ViewHostel = () => {
   const { Id } = useParams();
   const [details, setDetails] = useState("");
@@ -68,7 +69,15 @@ const ViewHostel = () => {
             justifyContent: "center",
           }}
         >
-          <Button variant="">Book</Button>
+          <Link to="tel:9645610025">
+            <Button
+              variant="contained"
+              startIcon={<PhoneIcon />}
+              style={{ marginTop: "1rem" }}
+            >
+              Contact
+            </Button>
+          </Link>
         </div>
       </Box>
     </Box>

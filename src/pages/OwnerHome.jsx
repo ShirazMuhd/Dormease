@@ -4,7 +4,7 @@ import OwnerList from '../components/OwnerList'
 const OwnerHome = () => {
   return (
     <div>
-        <OwnerList />
+        <OwnerList user="owner"/>
     </div>
   )
 }

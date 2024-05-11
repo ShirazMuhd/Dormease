@@ -18,6 +18,7 @@ import AddHostel from "./pages/AddHostel";
 import UpdateHostel from "./pages/UpdateHostel";
 import { authContext, hostelContext } from "./context";
 import HostelView from "./pages/HostelView";
+import AdminHome from "./pages/AdminHome";
 function App() {
   const [auth, setAuth] = useState({ auth_status: false, user: {} });
   const auth_status = JSON.parse(localStorage.getItem("auth_status"));
@@ -34,12 +35,15 @@ function App() {
       <authContext.Provider value={{ auth, setAuth }}>
         <Router>
           <Home />
+          <div style={{padding: "3rem"}}>
+
+          
           <Routes>
             <Route path="/" exact element={<Hero />} />
 
             <Route path="/stdhome" exact element={<StudentHome />} />
             <Route path="/viewhostel/:Id" element={<HostelView />} />
-
+            <Route path="/adminhome" element={<AdminHome/>}/>
             <Route path="/stdlogin" element={<StudentLogin />} />
             <Route path="/stdsignup" element={<StudentSignup />} />
             <Route path="/ownerlogin" element={<OwnerLogin />} />
@@ -49,6 +53,7 @@ function App() {
             <Route path="/addhostel" element={<AddHostel />} />
             <Route path="/updatehostels" element={<UpdateHostel />} />
           </Routes>
+          </div>
         </Router>
       </authContext.Provider>
     </>

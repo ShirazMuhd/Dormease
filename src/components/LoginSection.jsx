@@ -3,23 +3,18 @@ import "./css/login.css";
 import { Button } from "@mui/material";
 import { TextField } from "@mui/material";
 import { db } from "../firebase/config";
-import {
-  collection,
-  getDocs,
-  query,
-  where,
-} from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
 import { authContext } from "../context";
 const LoginSection = (props) => {
   const [input, setInput] = useState({});
   const [invalid, setInvalid] = useState(false);
   const user = props.user;
-  const navigate = useNavigate()
-  const {auth, setAuth} = useContext(authContext)
+  const navigate = useNavigate();
+  const { auth, setAuth } = useContext(authContext);
   const login = async () => {
-    console.log(user)
-    const usersCollectionRef = collection(db, user );
+    console.log(user);
+    const usersCollectionRef = collection(db, user);
 
     let q = query(
       usersCollectionRef,
@@ -32,32 +27,39 @@ const LoginSection = (props) => {
         where("Admission_Number", "==", input.input1),
         where("Password", "==", input.input2)
       );
-    } else {
-      q= query(
+    } else if (props.user === "Owner") {
+      q = query(
         usersCollectionRef,
         where("Owner_Id", "==", input.input1),
         where("Password", "==", input.input2)
       );
-    }
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((snapshot) => {
-      console.log(snapshot.data());
-      const obj = { ...snapshot.data(), user: props.user }
+    } else {
+      const obj = { user: "admin" };
       localStorage.setItem("user", JSON.stringify(obj));
       localStorage.setItem("auth_status", true);
-      setAuth({auth_status: true, user: obj});
-      if(props.user === "student") {
-
-        navigate("/stdhome")
-      }else {
-        navigate("/ownerhome")
-      }
-    });
-    if (querySnapshot.size !== 1) {
+      navigate("/adminhome");
+    }
+    const querySnapshot = await getDocs(q);
+    if (props.user !== "admin") {
+      querySnapshot.forEach((snapshot) => {
+        console.log(snapshot.data());
+        const obj = { ...snapshot.data(), user: props.user };
+        localStorage.setItem("user", JSON.stringify(obj));
+        localStorage.setItem("auth_status", true);
+        setAuth({ auth_status: true, user: obj });
+        if (props.user === "student") {
+          navigate("/stdhome");
+        } else {
+          navigate("/ownerhome");
+        }
+      });
+    }
+    if (querySnapshot.size !== 1 && props.user !== "admin") {
       setInvalid(true);
     }
     const fetchedData = [];
   };
+  
   return (
     <div className="login">
       <h3>Login as {props.user}</h3>

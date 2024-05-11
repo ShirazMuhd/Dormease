@@ -17,7 +17,7 @@ const AddDetails = () => {
   const hostelCollectionRef = collection(db, "hostels");
   const owner = JSON.parse(localStorage.getItem("user")).Owner_Id
   const addHostel = async () => {
-    const data = {...details, owner,id: Date.now()}
+    const data = {...details, owner,id: Date.now(), verified: false}
     await addDoc(hostelCollectionRef, data);
   };
   return (

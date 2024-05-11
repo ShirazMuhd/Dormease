@@ -17,8 +17,11 @@ const Header = () => {
     setAuth({ auth_status: false, user: null });
     if (user == "student") {
       navigate("/stdlogin");
-    } else {
+    } else if (user == "owner") {
       navigate("/ownerlogin");
+    } else {
+      navigate("/adminlogin");
+      
     }
   };
   return (

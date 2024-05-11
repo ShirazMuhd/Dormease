@@ -28,7 +28,10 @@ export default function HostelList(props) {
             <b>Rent</b> : Rs {props.data.rent} <br />
             <b>Mess</b> : {props.data.mess} <br />
             <b>Contact Number</b> : {props.data.contact_number} <br />
-            <Rating name="read-only" value={3.2} readOnly />
+            {/* <Rating name="read-only" value={3.2} readOnly /> */}
+            {props.data.verified && (
+              <Button variant="text" color="success">Verified</Button>
+            )}
           </Typography>
         </CardContent>
         <CardActions>
