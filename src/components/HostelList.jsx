@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Rating from '@mui/material/Rating';
 import { useNavigate } from "react-router-dom";
-
+import VerifiedIcon from '@mui/icons-material/Verified';
 export default function HostelList(props) {
   const navigate = useNavigate()
   
@@ -31,7 +31,7 @@ export default function HostelList(props) {
             <b>Contact Number</b> : {props.data.contact_number} <br />
             {/* <Rating name="read-only" value={3.2} readOnly /> */}
             {props.data.verified && (
-              <Button variant="text" color="success">Verified</Button>
+              <Button variant="text" color="success" startIcon={<VerifiedIcon/>}>Verified</Button>
             )}
           </Typography>
         </CardContent>
