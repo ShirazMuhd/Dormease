@@ -22,7 +22,7 @@ const AddDetails = () => {
   };
   return (
     <>
-      <div className="addDetails">
+      <div className="addDetails" >
         <h1>Add new hostel</h1>
         <TextField
           id="filled-basic"
@@ -53,6 +53,13 @@ const AddDetails = () => {
           variant="filled"
           style={{ margin: "0.5rem" }}
           onChange={(e) => setDetails({ ...details, mess: e.target.value })}
+        />
+        <TextField
+          id="filled-basic"
+          label="Gender"
+          variant="filled"
+          style={{ margin: "0.5rem" }}
+          onChange={(e) => setDetails({ ...details, gender: e.target.value })}
         />
         <TextField
           id="filled-basic"

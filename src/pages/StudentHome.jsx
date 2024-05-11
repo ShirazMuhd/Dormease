@@ -15,28 +15,38 @@ import {
 } from "firebase/firestore";
 import { Button } from "@mui/material";
 const StudentHome = () => {
-  const [alignment, setAlignment] = React.useState("web");
+  const [alignment, setAlignment] = React.useState("");
   const [hostels, setHostels] = useState([{}]);
-  const handleChange = (event, newAlignment) => {
-    setAlignment(newAlignment);
-  }
+  const [classData, setClassData] = useState(null);
   useEffect(() => {
     const getHostels = async () => {
       const dataRef = collection(db, "hostels");
       try {
         const data = await getDocs(dataRef);
-        const arr = []
+        const arr = [];
         await data.forEach((hostel) => {
-          arr.push(hostel.data())
+          arr.push(hostel.data());
         });
         console.log(arr);
-        setHostels(arr)
+        setHostels(arr);
       } catch (error) {
         console.log(error);
       }
     };
     getHostels();
   }, []);
+
+  const handleChange = async (event, newAlignment) => {
+    await setAlignment(newAlignment);
+    changeData();
+  };
+  const changeData = () => {
+    console.log(alignment);
+    const data = hostels;
+    const newData = data.filter((hostel) => hostel.gender === alignment);
+    console.log(newData);
+    setClassData(newData);
+  };
   return (
     <div
       style={{
@@ -55,8 +65,8 @@ const StudentHome = () => {
           onChange={handleChange}
           aria-label="Platform"
         >
-          <ToggleButton value="web">Boys</ToggleButton>
-          <ToggleButton value="android">Girls</ToggleButton>
+          <ToggleButton value="girls">Boys</ToggleButton>
+          <ToggleButton value="boys">Girls</ToggleButton>
         </ToggleButtonGroup>
       </div>
       <div
@@ -67,11 +77,21 @@ const StudentHome = () => {
           flexWrap: "wrap",
         }}
       >
-        {
-          hostels.map(hostel => (
-            <HostelList name={hostel.name} image={hostel.image} data={hostel}/>
-          ))
-        }
+        {classData === null
+          ? hostels.map((hostel) => (
+              <HostelList
+                name={hostel.name}
+                image={hostel.image}
+                data={hostel}
+              />
+            ))
+          : classData.map((hostel) => (
+              <HostelList
+                name={hostel.name}
+                image={hostel.image}
+                data={hostel}
+              />
+            ))}
       </div>
     </div>
   );

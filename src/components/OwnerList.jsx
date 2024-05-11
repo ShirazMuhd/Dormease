@@ -79,18 +79,18 @@ export default function OwnerList(props) {
     });
   }
   return (
-    <>
+    <div >
       <div
         style={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "space-between",
+          justifyContent: "center",
         }}
       >
-        <h1>Hostel List</h1>
+        
         {props.user === "owner" && (
           <Link to="/addhostel">
-            <Button startIcon={<AddIcon />} variant="contained">
+            <Button startIcon={<AddIcon />} variant="contained" style={{paddingLeft: "1rem"}}>
               Add Hostel
             </Button>
           </Link>
@@ -130,6 +130,6 @@ export default function OwnerList(props) {
           </Accordion>
         ))}
       </div>
-    </>
+    </div>
   );
 }

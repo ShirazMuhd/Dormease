@@ -52,12 +52,15 @@ const LoginSection = (props) => {
 
   
   return (
-    <div className="login">
-      <h3>Signup as {props.user}</h3>
+    <div className="login" style={{padding:"2rem", fontFamily: "monospace"}}>
+      <h2>Signup as {props.user}</h2>
       <TextField
         id="filled-basic"
         label={props.label1}
         variant="filled"
+        style={{
+          marginTop: "1rem"
+        }}
         onChange={(e) => {
           setInput({ ...input, input1: e.target.value });
           console.log(input);

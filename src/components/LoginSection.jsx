@@ -61,8 +61,8 @@ const LoginSection = (props) => {
   };
 
   return (
-    <div className="login">
-      <h3>Login as {props.user}</h3>
+    <div className="login" style={{padding: "1rem", fontFamily: "monospace"}}>
+      <h2>Login as {props.user}</h2>
       <TextField
         id="filled-basic"
         label={props.label1}
