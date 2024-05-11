@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import "./css/ViewHostel.css";
 import { db } from "../firebase/config";
 import { collection, getDocs, query, where } from "firebase/firestore";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 import { Button } from "@mui/material";
 import PhoneIcon from "@mui/icons-material/Phone";
 const ViewHostel = () => {
@@ -73,9 +74,20 @@ const ViewHostel = () => {
             <Button
               variant="contained"
               startIcon={<PhoneIcon />}
-              style={{ marginTop: "1rem" }}
+              style={{ margin: "1rem" }}
             >
               Contact
+            </Button>
+          </Link>
+          <Link
+            to={`https://www.google.com/maps/search/?q=${details.latitude},${details.longitude}`}
+          >
+            <Button
+              variant="contained"
+              startIcon={<LocationOnIcon />}
+              style={{ margin: "1rem" }}
+            >
+              Visit
             </Button>
           </Link>
         </div>

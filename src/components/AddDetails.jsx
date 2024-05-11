@@ -10,19 +10,21 @@ import {
   deleteDoc,
   doc,
 } from "firebase/firestore";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const AddDetails = () => {
   const [details, setDetails] = useState({});
+  const navigate = useNavigate();
   const hostelCollectionRef = collection(db, "hostels");
-  const owner = JSON.parse(localStorage.getItem("user")).Owner_Id
+  const owner = JSON.parse(localStorage.getItem("user")).Owner_Id;
   const addHostel = async () => {
-    const data = {...details, owner,id: Date.now(), verified: false}
+    const data = { ...details, owner, id: Date.now(), verified: false };
     await addDoc(hostelCollectionRef, data);
+    navigate("/ownerhome");
   };
   return (
     <>
-      <div className="addDetails" >
+      <div className="addDetails">
         <h1>Add new hostel</h1>
         <TextField
           id="filled-basic"
@@ -74,6 +76,21 @@ const AddDetails = () => {
           variant="filled"
           style={{ margin: "0.5rem" }}
           onChange={(e) => setDetails({ ...details, rent: e.target.value })}
+        />
+        <h4>Location</h4>
+        <TextField
+          id="filled-basic"
+          label="latitude"
+          variant="filled"
+          style={{ margin: "0.5rem" }}
+          onChange={(e) => setDetails({ ...details, latitude: e.target.value })}
+        />
+        <TextField
+          id="filled-basic"
+          label="longitude"
+          variant="filled"
+          style={{ margin: "0.5rem" }}
+          onChange={(e) => setDetails({ ...details, longitude: e.target.value })}
         />
         <Button
           variant="contained"
