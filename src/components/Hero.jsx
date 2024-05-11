@@ -21,14 +21,20 @@ export const Hero = () => {
     }
   });
   return (
-    <div>
-      <div className="hero">
-        <h1>Find Your Best Stay</h1>
+    <div style={{
+      width: '-webkit-fill-available',
+    }}>
+      <div className="hero" style={{
+        width: "100%",
+      }}>
+        <h1 style={{
+          color: "#fff"
+        }}>Find Your Best Stay</h1>
         <Link to="/stdlogin">
           <Button
             variant="contained"
             size="large"
-            style={{ width: "15rem", marginTop: "0.5rem" }}
+            style={{ width: "15rem", marginTop: "2rem" }}
           >
             Login as student
           </Button>

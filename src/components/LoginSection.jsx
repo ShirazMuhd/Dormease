@@ -59,7 +59,7 @@ const LoginSection = (props) => {
     }
     const fetchedData = [];
   };
-  
+
   return (
     <div className="login">
       <h3>Login as {props.user}</h3>
@@ -67,6 +67,9 @@ const LoginSection = (props) => {
         id="filled-basic"
         label={props.label1}
         variant="filled"
+        style={{
+          marginTop: "1rem",
+        }}
         onChange={(e) => {
           setInput({ ...input, input1: e.target.value });
         }}
@@ -88,23 +91,28 @@ const LoginSection = (props) => {
       >
         Login
       </Button>
-      <Button
-        variant="text"
-        size="large"
-        style={{ width: "13.5rem", margin: "10px" }}
-        disabled
-      >
-        {invalid ? "Invalid Data" : ""}
-      </Button>
+
       <Link to={props.user == "student" ? "/stdsignup" : "/ownersignup"}>
         <Button
           variant="text"
           size="large"
-          style={{ width: "13.5rem", margin: "10px" }}
+          style={{ width: "13.5rem", margin: "" }}
         >
           Signup
         </Button>
       </Link>
+      {invalid ? (
+        <Button
+          variant="text"
+          size="large"
+          style={{ width: "13.5rem", margin: "10px" }}
+          disabled
+        >
+          Invalid Data
+        </Button>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

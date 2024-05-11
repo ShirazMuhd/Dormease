@@ -35,24 +35,30 @@ function App() {
       <authContext.Provider value={{ auth, setAuth }}>
         <Router>
           <Home />
-          <div style={{padding: "3rem"}}>
+          <div
+            style={{
+              padding: "3rem",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "-webkit-fill-available",
+            }}
+          >
+            <Routes>
+              <Route path="/" exact element={<Hero />} />
 
-          
-          <Routes>
-            <Route path="/" exact element={<Hero />} />
-
-            <Route path="/stdhome" exact element={<StudentHome />} />
-            <Route path="/viewhostel/:Id" element={<HostelView />} />
-            <Route path="/adminhome" element={<AdminHome/>}/>
-            <Route path="/stdlogin" element={<StudentLogin />} />
-            <Route path="/stdsignup" element={<StudentSignup />} />
-            <Route path="/ownerlogin" element={<OwnerLogin />} />
-            <Route path="/ownersignup" element={<OwnerSignup />} />
-            <Route path="/adminlogin" element={<AdminLogin />} />
-            <Route path="/ownerhome" element={<OwnerHome />} />
-            <Route path="/addhostel" element={<AddHostel />} />
-            <Route path="/updatehostels" element={<UpdateHostel />} />
-          </Routes>
+              <Route path="/stdhome" exact element={<StudentHome />} />
+              <Route path="/viewhostel/:Id" element={<HostelView />} />
+              <Route path="/adminhome" element={<AdminHome />} />
+              <Route path="/stdlogin" element={<StudentLogin />} />
+              <Route path="/stdsignup" element={<StudentSignup />} />
+              <Route path="/ownerlogin" element={<OwnerLogin />} />
+              <Route path="/ownersignup" element={<OwnerSignup />} />
+              <Route path="/adminlogin" element={<AdminLogin />} />
+              <Route path="/ownerhome" element={<OwnerHome />} />
+              <Route path="/addhostel" element={<AddHostel />} />
+              <Route path="/updatehostels" element={<UpdateHostel />} />
+            </Routes>
           </div>
         </Router>
       </authContext.Provider>
